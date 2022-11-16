@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
       tag: 'hero',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 150.0,
+        radius: 250.0,
         child: Image.asset('assets/utt_logo_ver_6.png'),
       ),
     );

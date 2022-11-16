@@ -67,7 +67,7 @@ class _calendar_reactiveState extends State<calendar_reactive>
             alignment: AlignmentDirectional.center,
             child: TabBar(
               controller: tabController,
-              indicatorColor: Colors.greenAccent,
+              indicatorColor: Colors.red,
               isScrollable: true,
               tabs: const [
                 Tab(
@@ -114,8 +114,8 @@ List<Appointment> getApointments() {
   meeting.add(Appointment(
       startTime: startTime,
       endTime: endTime,
-      subject: 'Sala del edificio P apartada',
-      color: Colors.red));
+      subject: 'Sala del edificio P apartada por el profesor: Francico Lopez ',
+      color: Colors.lightBlueAccent));
 
   return meeting;
 }
