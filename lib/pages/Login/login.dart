@@ -1,87 +1,187 @@
-import 'package:br_web_app/pages/calendar_reactive.dart';
 import 'package:flutter/material.dart';
-import 'package:br_web_app/main.dart';
+import 'package:flutter/scheduler.dart';
+import 'Login_controller.dart';
+import 'package:br_web_app/pages/colors/my_colors.dart';
+// import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController con = LoginController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      con.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 250.0,
-        child: Image.asset('assets/utt_logo_ver_6.png'),
-      ),
-    );
-
-    final email = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      initialValue: 'alucard@gmail.com',
-      decoration: InputDecoration(
-        hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
-      ),
-    );
-
-    final password = TextFormField(
-      autofocus: false,
-      initialValue: 'some password',
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
-      ),
-    );
-
-    final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: MaterialButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed(calendar_reactive.tag);
-        },
-        padding: EdgeInsets.all(12),
-        color: Colors.lightBlueAccent,
-        child: Text('Log In', style: TextStyle(color: Colors.white)),
-      ),
-    );
-
-    final forgotLabel = MaterialButton(
-      child: Text(
-        'Forgot password?',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {},
-    );
-
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            logo,
-            SizedBox(height: 35.0),
-            email,
-            SizedBox(height: 12.0),
-            password,
-            SizedBox(height: 25.0),
-            loginButton,
-            forgotLabel
-          ],
+      body: SizedBox(
+        width: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              textComedorUtt(),
+              // loadingAnimation(),
+              imageBanner(),
+              textFieldUserCode(),
+              textFieldPassword(),
+              buttonLogin(),
+              textDontHaveAccount()
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget textComedorUtt() {
+    return Container(
+      margin: const EdgeInsets.only(top: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            'Comedor ',
+            style: TextStyle(
+                color: MyColors.primaryColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'UT',
+            style: TextStyle(
+                color: MyColors.secondaryColor,
+                fontFamily: 'Empanada',
+                fontSize: 30,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            't',
+            style: TextStyle(
+                color: MyColors.primaryColor,
+                fontFamily: 'Empanada',
+                fontSize: 35,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget _loadingAnimation() {
+  //   return Container(
+  //     margin: EdgeInsets.only(
+  //         top: 25, bottom: MediaQuery.of(context).size.height * 0.10),
+  //     child: Lottie.asset('assets/json/3dots-loading.json',
+  //         width: 200, height: 200, fit: BoxFit.fill),
+  //   );
+  // }
+
+  Widget imageBanner() {
+    return Container(
+      margin: EdgeInsets.only(
+          top: 25, bottom: MediaQuery.of(context).size.height * 0.10),
+      child: Image.asset(
+        'assets/img/icon.png',
+        width: 200,
+        height: 200,
+      ),
+    );
+  }
+
+  Widget textFieldUserCode() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: con.userCodeController,
+        // keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+            hintText: 'Matricula/No. Empleado',
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            prefixIcon: Icon(
+              Icons.person,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget textFieldPassword() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      decoration: BoxDecoration(
+          color: MyColors.primaryOpacityColor,
+          borderRadius: BorderRadius.circular(30)),
+      child: TextField(
+        controller: con.passwordController,
+        obscureText: true,
+        // keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+            hintText: 'Contraseña',
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(15),
+            prefixIcon: Icon(
+              Icons.lock,
+              color: MyColors.primaryColor,
+            )),
+      ),
+    );
+  }
+
+  Widget buttonLogin() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+      child: ElevatedButton(
+        onPressed: con.login,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: MyColors.primaryColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            padding: const EdgeInsets.symmetric(vertical: 15)),
+        child: const Text('Ingresar'),
+      ),
+    );
+  }
+
+  Widget textDontHaveAccount() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '¿No tienes cuenta?',
+            // Might delete textstyle
+            style: TextStyle(color: MyColors.primaryColor),
+          ),
+          const SizedBox(width: 7),
+          GestureDetector(
+            onTap: con.goToRegisterPage,
+            child: const Text(
+              'Registrate',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+            ),
+          )
+        ],
       ),
     );
   }

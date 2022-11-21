@@ -1,26 +1,32 @@
-import 'package:br_web_app/pages/calendar_reactive.dart';
 import 'package:flutter/material.dart';
+import 'package:br_web_app/pages/colors/my_colors.dart';
 import 'package:br_web_app/pages/Login/login.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
-class MyApp extends StatelessWidget {
-  final routes = <String, WidgetBuilder>{
-    LoginPage.tag: (context) => LoginPage(),
-    calendar_reactive.tag: (context) => calendar_reactive(),
-  };
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BR_reservation',
+      title: 'Comedor Utt',
       debugShowCheckedModeBanner: false,
+      initialRoute: 'login',
+      routes: {
+        'login': (BuildContext context) => const LoginPage(),
+      },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Nunito',
-      ),
-      home: LoginPage(),
-      routes: routes,
+          // fontFamily: 'Roboto',
+          primaryColor: MyColors.primaryColor,
+          colorScheme: const ColorScheme.light(primary: MyColors.primaryColor)),
     );
   }
 }
