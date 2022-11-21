@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
       ),
     );
 
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
       ),
     );
 
@@ -73,11 +73,11 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             logo,
-            SizedBox(height: 48.0),
+            SizedBox(height: 35.0),
             email,
-            SizedBox(height: 8.0),
+            SizedBox(height: 12.0),
             password,
-            SizedBox(height: 24.0),
+            SizedBox(height: 25.0),
             loginButton,
             forgotLabel
           ],

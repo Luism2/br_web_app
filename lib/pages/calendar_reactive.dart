@@ -92,10 +92,9 @@ class _calendar_reactiveState extends State<calendar_reactive>
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: SfCalendar(
-                view: CalendarView.month,
-                monthViewSettings: MonthViewSettings(showAgenda: true),
-                dataSource: MeetingDataSource(getApointments()),
-              ),
+                  view: CalendarView.month,
+                  monthViewSettings: MonthViewSettings(showAgenda: true),
+                  dataSource: MeetingDataSource(getApointments())),
             ),
           ),
         ),
